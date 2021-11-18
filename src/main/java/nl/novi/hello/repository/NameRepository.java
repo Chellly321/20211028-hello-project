@@ -1,2 +1,4 @@
-package nl.novi.hello.repository;public interface NameRepository {
+package nl.novi.hello.repository;
+
+public interface NameRepository {
 }

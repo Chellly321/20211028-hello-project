@@ -30,6 +30,7 @@ public class NameController {
     public String getNames(@PathVariable int id) {
         return names.get(id);
     }
+
     @DeleteMapping (value = "/names/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     public String DeleteName(@PathVariable int id){

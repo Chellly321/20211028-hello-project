@@ -1,2 +1,4 @@
-package nl.novi.hello.model;public class Hello {
+package nl.novi.hello.model;
+
+public class Hello {
 }
