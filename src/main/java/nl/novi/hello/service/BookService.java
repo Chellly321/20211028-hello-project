@@ -1,5 +1,7 @@
 package nl.novi.hello.service;
 
+import antlr.RecognitionException;
+import nl.novi.hello.exceptions.RecordNotFoundException;
 import nl.novi.hello.model.Book;
 import nl.novi.hello.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,19 +32,45 @@ public class BookService {
             return optionalBook.get();
         } else {
             // exception
-            throw new RecordNotFoundException("ID does not exist!!!");
+            throw new RecordNotFoundException("ID does not excist!!");
     }}
 
     public void deleteBook(int id) {
-        BookRepository.deleteById(id);
+        bookRepository.deleteById(id);
     }
 
     public int addBook(Book book) {
         Book newBook = bookRepository.save(book);
-        return
+        return newBook.getId();
     }
 
-    public void updateBook() {}
+    public void updateBook(int id, Book book) {
+        Book excistingBook = bookRepository.findById(id).orElse(null);
 
-    public void partialUpdateBook() {}
+        if (!book.getTitle().isEmpty()){
+            excistingBook.setTitle(book.getTitle());
+        }
+        if (!book.getAuthor().isEmpty()){
+            excistingBook.setAuthor((book.getAuthor()));
+        }
+        if (!book.getIsbn().isEmpty()){
+            excistingBook.setIsbn(book.getIsbn());
+        }
+        bookRepository.save(excistingBook);
+    }
+
+    public void partialUpdateBook(int id, Book book) {
+        Book existingBook = bookRepository.findById(id).orElse(null);
+
+        if (!book.getTitle().isEmpty()) {
+            existingBook.setTitle(book.getTitle());
+        }
+        if (!book.getAuthor().isEmpty()){
+            existingBook.setAuthor(book.getAuthor());
+        }
+        if (!book.getIsbn().isEmpty()){
+            existingBook.setIsbn(book.getIsbn());
+        }
+        bookRepository.save(existingBook);
+    }
 }
